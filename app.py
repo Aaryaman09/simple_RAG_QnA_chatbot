@@ -1,4 +1,3 @@
-from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 
 from icecream import ic
@@ -121,22 +120,18 @@ class RAGApp:
         document_chain = self.fetch_document_chain(llm=llm, prompt=prompt)
 
         # Create a retrieval chain using the Chroma retriever and document chain
-        return self.fetch_retriever_chain(
+        rag_chain = self.fetch_retriever_chain(
             chroma_db_retriever=chroma_db_retriever,
             document_chain=document_chain
         )
     
         # Initialize the chat history manager and prompt template
-        # history_manager = ChatHistoryManager()
+        history_manager = ChatHistoryManager()
 
-        # # Create a RunnableWithMessageHistory to handle message history
-        # with_message_history = RunnableWithMessageHistory(
-        #     prompt_obj.get_prompt() | llm_obj.get_model(),              # Chain: prompt to model
-        #     history_manager.get_session_history, 
-        #     input_messages_key="messages")
-
-        # # return the runnable and model name
-        # return with_message_history
+        # Create a RunnableWithMessageHistory to handle message history
+        return history_manager.get_runnable_with_history(
+            rag_chain=rag_chain
+        )
 
 
 if __name__ == "__main__":
@@ -144,9 +139,7 @@ if __name__ == "__main__":
     pass_keys = get_config("key.json")
 
     chatbot = RAGApp(pass_keys=pass_keys)
-    rag_chain = chatbot.fetch_rag_chain()
-
-    chat_history = []
+    conversational_rag_chain = chatbot.fetch_rag_chain()
 
     print(f"Welcome to the ChatBot! Type 'exit' to quit.")
     while True:
@@ -155,34 +148,18 @@ if __name__ == "__main__":
             break
         
         key_config = get_config("key.json")
-        # configuration = {
-        #     "configurable": {
-        #         "session_id": key_config.get("chat_session_id"),
-        #     }
-        # }
 
-        # # Invoke the LLM with the human message
-        # response = with_message_history.invoke(
-        #     {
-        #         "messages": [HumanMessage(content=user_input)],
-        #         "language": user_input_language                      # key_config.get("language", "English")
-        #     },
-        #     config=configuration
-        # )
-
-        response = rag_chain.invoke(
+        response = conversational_rag_chain.invoke(
             {
                 "input": user_input,
-                "chat_history": chat_history,
                 "language": key_config.get('language', 'English')  # Default to English if not specified
-                # "language": key_config.get('language')
+            },
+            config={
+                "configurable": {
+                    "session_id": key_config.get("chat_session_id"),
+                }
             }
-        )   
-
-        chat_history.extend([
-            HumanMessage(content=user_input),
-            AIMessage(content=response['answer'])
-        ])
+        )
 
         ic(response['answer'])
 
