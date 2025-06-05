@@ -73,14 +73,3 @@ class WebDataIngestion:
             chunk_overlap=chunk_overlap
         )
         return text_splitter.split_documents(documents)
-    
-if __name__ == "__main__":
-    print("Web Data Ingestion Module")
-    # url = "https://lilianweng.github.io/posts/2023-06-23-agent/"  # Replace with the actual URL
-    url = "/Users/aasharma/Downloads/python_projects/simple_RAG_QnA_chatbot/text_corpse/my_summary.txt"
-    
-    web_data_ingestion = WebDataIngestion(url)
-    documents = web_data_ingestion.fetch_data()
-    print(f"Fetched {len(documents)} documents from {url}")
-    split_docs = web_data_ingestion.split_documents(documents)
-    print(f"Split into {len(split_docs)} chunks.")

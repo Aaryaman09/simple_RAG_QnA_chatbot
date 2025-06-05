@@ -1,5 +1,5 @@
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, AIMessage
 
 from icecream import ic
 
@@ -46,8 +46,9 @@ class RAGApp:
 
     def fetch_prompt(self):
         prompt_obj = PromptTemplate()
-        return prompt_obj.get_prompt()
-    
+        # return prompt_obj.get_prompt()      # This prompt forgets the chat history and just uses the input message
+        return prompt_obj.get_chat_history_prompt()  # This prompt uses the chat history to contextualize the question
+
     def fetch_embeddings(self):
         """
         Fetch embeddings from the HuggingFace model specified in the pass_keys.
@@ -66,8 +67,13 @@ class RAGApp:
             documents=split_documents,
             embeddings=self.fetch_embeddings()
         )
-        return chroma_db_obj.get_retriever()
-    
+        # return chroma_db_obj.get_retriever()    # This retriever forgets the chat history and just uses the input message
+        return chroma_db_obj.get_history_aware_retriever(llm=self.fetch_llm())  # This LLM uses the chat history to contextualize the question (the prompt used in this will have chat history, LLM understand what we were talking about and will create a final prompt for the retriever to find the relevant context documents from the vector database). That is why llm is passed here.
+                                                                                # Suppose question 1 : who is Elon musk?
+                                                                                # And your question 2 : "what is his net worth?", llm will look at the chat history and understand that we were talking about Elon Musk, so it will create a prompt like "what is the net worth of Elon Musk?" and then final prompt will be sent to the retriever to find the relevant context documents from the vector database.
+                                                                                # After receiving the context documents, the LLM will answer the question based on the context documents.
+                                                                                # If you use line 70 along with line 49, LLM will not look at the chat history and just use the input message, it will not connect his = elon musk and give weird answers like "I don't know" or "I don't have any information about this person" 
+
     def fetch_llm(self):
         """
         Fetch the LLM model based on the service and model name specified in the pass_keys.
@@ -103,7 +109,7 @@ class RAGApp:
         split_documents = self.fetch_input_data()
 
         # Fetching the prompt template
-        prompt = self.fetch_prompt()
+        prompt = self.fetch_prompt()            
 
         # Initialize the Chroma vector database with the split documents and embeddings
         chroma_db_retriever = self.fetch_chroma_db(split_documents)
@@ -140,6 +146,8 @@ if __name__ == "__main__":
     chatbot = RAGApp(pass_keys=pass_keys)
     rag_chain = chatbot.fetch_rag_chain()
 
+    chat_history = []
+
     print(f"Welcome to the ChatBot! Type 'exit' to quit.")
     while True:
         user_input = input("\nYou: ")
@@ -165,8 +173,16 @@ if __name__ == "__main__":
         response = rag_chain.invoke(
             {
                 "input": user_input,
-                "language": key_config.get('language')
+                "chat_history": chat_history,
+                "language": key_config.get('language', 'English')  # Default to English if not specified
+                # "language": key_config.get('language')
             }
         )   
+
+        chat_history.extend([
+            HumanMessage(content=user_input),
+            AIMessage(content=response['answer'])
+        ])
+
         ic(response['answer'])
 

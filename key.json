@@ -14,7 +14,7 @@
     "HGFembedding": {
         "model_name": "sentence-transformers/all-MiniLM-L6-v2"
     },
-    "data_source_type":"local_file",
+    "data_source_type":"remote_website_link",
     "source_url":{
         "local_file": {
             "directory_name":"text_corpse",

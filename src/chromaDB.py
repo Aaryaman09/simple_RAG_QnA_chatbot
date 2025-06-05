@@ -1,4 +1,6 @@
 from langchain_chroma import Chroma
+from langchain.chains.history_aware_retriever import create_history_aware_retriever
+from .prompt import PromptTemplate  
 
 class VectorChromaDB:
     """
@@ -31,27 +33,14 @@ class VectorChromaDB:
         if search_kwargs is None:
             search_kwargs = {}
         return self.chroma_client.as_retriever(search_kwargs=search_kwargs)
-
-
-if __name__ == "__main__":
-    # huggingface embeddings
-    from langchain_huggingface import HuggingFaceEmbeddings
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     
+    def get_history_aware_retriever(self, llm):
+        """
+        Get a history-aware retriever from the Chroma vector database.
 
-    # Sample documents and embeddings
-    # convert sample list of text into documents using document class
-    from langchain_core.documents import Document
-    sample_documents = [Document(page_content="This is a sample document."), Document(page_content="This is another document.")]
-
-    # Initialize the Chroma vector database
-    vector_db = VectorChromaDB(
-        documents=sample_documents, 
-        embeddings=embeddings, 
-        persist_directory="./chroma_db"
-    )
-
-    # Get the retriever
-    retriever = vector_db.get_retriever()
-    print(retriever)
-    print("Retriever initialized successfully.")
+        :param chat_history: List of previous chat messages.
+        :param search_kwargs: Additional search parameters for the retriever.
+        :return: A history-aware retriever object.
+        """
+        
+        return create_history_aware_retriever(llm, self.get_retriever(), PromptTemplate().get_contextualize_q_system_prompt())
