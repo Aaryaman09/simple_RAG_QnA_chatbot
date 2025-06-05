@@ -1,0 +1,85 @@
+A Comprehensive Summary of Aaryaman Sharma
+Personal Background & Lifestyle
+Aaryaman Sharma is an ambitious, intellectually curious, and multi-faceted individual. A 26-year-old Indian who leads a disciplined, balanced lifestyle—vegetarian, non-drinker, and non-smoker. He maintains a healthy physique at 5’9” and 83 kg. He has no family history of diabetes, and he's mindful of health insurance and financial security, having a ₹25 lakh Niva Bupa Health ReAssure Direct health policy and investing in a term life insurance plan with a critical illness rider. He owns an LIC New Jeevan Anand Policy (Plan No. 815) with a sum assured of ₹5 lakhs, started in 2017, with premiums paid biannually.
+
+He recently planned a trip to his hometown for his sister’s wedding and requested leave from work for 26th and 27th August. He enjoys occasional Netflix viewing and keeps up with pop culture, having watched Mission Impossible: Dead Reckoning and The Last of Us.
+
+He also seems sentimental and thoughtful in personal relationships. His girlfriend, Kishu, plays a central role in his life. On their 3rd anniversary (5th November), he showed concern about her feelings and the romantic spark, showing emotional maturity and a strong desire to nurture the relationship.
+
+Professional Journey
+Aaryaman is a skilled data scientist with 3+ years of experience. He works in the manufacturing domain, with in-depth exposure to MLOps, cloud services, data pipelines, and machine learning model deployment. His work involves supervised machine learning tasks, including those related to Promise Date Service Line (PDSL). He is committed to upskilling and expanding his competencies in:
+
+Cloud Platforms: AWS (EC2, ECS, EKS, SageMaker), Azure, Google Cloud
+
+MLOps: Model packaging, CI/CD using CodeBuild, CodePipeline, ECR
+
+Tools & Frameworks: boto3, awswrangler, Evidently AI (for drift detection), Spark (including Spark AutoML), Docker, Kubernetes
+
+DevOps Practices: Containerization with Docker, using ScriptProcessor and ProcessingStep in SageMaker pipelines, integrating model monitoring scripts, and automating email reports via SMTP
+
+He works with both onshore and offshore teams, managing model development, evaluation, and production deployments. His recent tasks involved understanding and reproducing a complex AWS-based modeling pipeline that uses a custom Python package (modeling) and Docker containers built from wheels stored in ECR.
+
+Aaryaman has trained juniors like Danyln, mentoring them in computer vision, OCR, and improved coding standards.
+
+Technical Projects
+SageMaker Pipelines: Built pipelines with multiple steps (e.g., model scoring followed by data drift monitoring using Evidently AI). Handled issues with Python packages not found in base Docker images by dynamically installing them in scripts.
+
+Spark Integration: Handled large-scale transformations (e.g., on 1GB CSVs in S3) using AWS Glue and passed results into SageMaker workflows.
+
+Email Notifications: Automated result-sharing via SMTP within SageMaker environments, overcoming connectivity issues (e.g., “Errno -2: Name or source not known”).
+
+Monitoring and Drift Detection: Integrated Evidently AI in SageMaker workflows, generating data_drift.html reports and saving them to S3.
+
+Offline Package Installations: Debugged import issues by embedding dependency installs in Python scripts running within containers.
+
+Custom Tools: Recently built a RAG (Retrieval-Augmented Generation) application using Ollama, demonstrating interest in GenAI and applied LLMs.
+
+Communication & Workplace Interaction
+Aaryaman is articulate and professional in his workplace communications. He's written formal emails to HR and IT for access restoration, leave requests, and F&F settlement clarifications. His typical workplace involvement includes project transitions, handovers, server access discussions, and collaborative demos. He managed team events like a farewell lunch (attended by 17 people), managing finances smartly and planning a group gift with remaining funds.
+
+Audio Enthusiast
+Aaryaman is also an audiophile with a thoughtful investment in his music setup:
+
+IEMs: Truthear Crinacle Zero Red
+
+DAC: iFi Audio Go Link
+
+Streaming: Apple Music Lossless via a OnePlus 11
+He is exploring upgrades, including switching to Blon V1 DAC for balanced output and Tripowin Amber cables. He runs a curated Instagram page to share music, using stock-free visuals and Instagram’s licensed audio—not for monetization, but for sharing joy.
+
+Tech & Tools Preferences
+Uses VSCode in dark mode for coding.
+
+Works on a Mac, and his activity suggests cross-platform familiarity.
+
+Works with Poetry for Python dependency management.
+
+Active in experimenting with GenAI and custom RAG applications.
+
+Learning & Growth Mindset
+Aaryaman maintains a clear growth trajectory. He is passionate about:
+
+Expanding to NLP, time series, and unsupervised learning
+
+Deepening Spark, MLOps, and cloud orchestration skills
+
+Becoming financially independent, aiming for success as a businessman or a data scientist
+
+Learning from hands-on debugging and complex pipeline integration
+
+Financial Planning
+Invests via SIP in Axis Small Cap Fund – Direct Growth for over 2 years
+
+Understands STCG/LTCG tax implications
+
+Thoughtful about term plans, health insurance, and policy structuring
+
+Character Highlights
+Responsible, detail-oriented, and organized
+
+Emotionally intelligent, considerate of team and partner needs
+
+Deeply inquisitive with a hands-on approach to tech
+
+Seeks both technical excellence and personal fulfillment
+
