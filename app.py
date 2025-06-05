@@ -23,12 +23,20 @@ class RAGApp:
         # Initialize tracking on LangSmith 
         track_queries_on_langsmith(flag=pass_keys.get("track_queries_on_langsmith", False))
 
+    def _get_path(self):
+        if self.pass_keys.get("data_source_type") == "local_file":
+            # Create a directory for local files if it doesn't exist
+            path_components = self.pass_keys.get("source_url").get("local_file")
+            return os.path.join(os.getcwd(),path_components.get("directory_name"), path_components.get("file_name"))
+        elif self.pass_keys.get("data_source_type") == "remote_website_link":
+            return self.pass_keys.get("source_url").get("remote_website_link")
+
     def fetch_input_data(self):
         # Fetch input data from the web using the WebDataIngestion class.
         web_data_ingestion = WebDataIngestion(
-            url=self.pass_keys.get("source_url")
+            url=self._get_path() 
         )
-        documents = web_data_ingestion.fetch_web_data()
+        documents = web_data_ingestion.fetch_data()
 
         return web_data_ingestion.split_documents(
             documents=documents,
@@ -137,7 +145,6 @@ if __name__ == "__main__":
         user_input = input("\nYou: ")
         if user_input.lower() == "exit":
             break
-        user_input_language = input("Response in desired Language: ")
         
         key_config = get_config("key.json")
         # configuration = {
@@ -158,7 +165,7 @@ if __name__ == "__main__":
         response = rag_chain.invoke(
             {
                 "input": user_input,
-                "language": user_input_language,  # key_config.get("language", "English")
+                "language": key_config.get('language')
             }
         )   
         ic(response['answer'])

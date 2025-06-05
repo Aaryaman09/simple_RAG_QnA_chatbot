@@ -14,8 +14,13 @@ class PromptTemplate:
         Returns the prompt template with the specified language.
         """
 
+        system_message = "You are a helpful assistant. " \
+        "Answer the user's questions to the best of your ability in language : {language}. " \
+        "Answer only if you are sure about the answer and should only come from the context provided. " \
+        "If you don't find any relevant information, say 'I don't know'. \n\n {context}"
+
         return ChatPromptTemplate.from_messages([
-            ("system", "You are a helpful assistant. Answer the user's questions to the best of your ability in language : {language}. Answer only if you are sure about the answer. If you are not sure, say 'I don't know'. \n\n {context}"),
+            ("system", system_message),
             ("human", "{input}"),  ## MessagesPlaceholder(variable_name="input") is an alternative way for user input but used for message history scenario.
         ])
 

@@ -14,8 +14,15 @@
     "HGFembedding": {
         "model_name": "sentence-transformers/all-MiniLM-L6-v2"
     },
-    "source_url":"https://lilianweng.github.io/posts/2023-06-23-agent/",
-    "document_spliting_config":{
+    "data_source_type":"local_file",
+    "source_url":{
+        "local_file": {
+            "directory_name":"text_corpse",
+            "file_name": "my_summary.txt"
+        },
+        "remote_website_link": "https://lilianweng.github.io/posts/2023-06-23-agent/"
+    },
+    "document_spliting_config": {
         "chunk_size": 1000,
         "chunk_overlap": 200
     },
