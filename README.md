@@ -57,4 +57,4 @@ This project is a **Retrieval-Augmented Generation (RAG)** based chatbot built w
 
 ### **Note** : Check readme in screenshot folder to know whats happening in this picture.
 
-## Reference : https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/
+#### Reference : https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/
