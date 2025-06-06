@@ -13,7 +13,7 @@ class PromptTemplate:
         "Answer only if you are sure about the answer and should only come from the context provided. " \
         "If you don't find any relevant information, say 'I don't know'. \n\n {context}"
 
-    def get_prompt(self) -> ChatPromptTemplate:
+    def get_prompt(self) -> ChatPromptTemplate:                         ## Not needed, but kept for reference
         """
         Returns the prompt template with the specified language.
         """
